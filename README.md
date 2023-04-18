@@ -1,3 +1,3 @@
 # project_DAV
 
-## Authors: Julia SMolik, Zofia Kochańska
+## Authors: Zofia Kochańska, Julia Smolik
