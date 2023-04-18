@@ -20,7 +20,7 @@ fig.add_scatter(x=data.date,
                 mode='lines+markers',
                 line=dict(width=2, color = "#1f77b4"),
                 marker=dict(size=5, maxdisplayed=90),
-                hovertemplate= "Cases: %{y}<br><extra></extra>")
+                hovertemplate= "Date: %{x}<br>Cases: %{y}<br><extra></extra>")
 
 # Daily deaths
 fig.add_scatter(x=data.date,
@@ -28,7 +28,7 @@ fig.add_scatter(x=data.date,
                 name="Deaths",
                 mode='lines',
                 line=dict(width=2, dash="dash", color = '#d62728'),
-                hovertemplate= "Deaths: %{y}<br><extra></extra>")
+                hovertemplate= "Date: %{x}<br>Deaths: %{y}<br><extra></extra>")
 
 # Daily tests
 fig.add_scatter(x=data.date,
@@ -36,7 +36,7 @@ fig.add_scatter(x=data.date,
                 name="Tests",
                 mode='lines',
                 line=dict(width=2, color = '#2ca02c'),
-                hovertemplate= "Tests: %{y}<br><extra></extra>")
+                hovertemplate= "Date: %{x}<br>Tests: %{y}<br><extra></extra>")
 
 # Daily vaccinations
 fig.add_scatter(x=data.date,
@@ -44,7 +44,7 @@ fig.add_scatter(x=data.date,
                 name="Vaccinations",
                 mode='lines',
                 line=dict(width=2, dash="dot", color = '#9467bd'),
-                hovertemplate= "Vaccinations: %{y}<br><extra></extra>")
+                hovertemplate= "Date: %{x}<br>Vaccinations: %{y}<br><extra></extra>")
 
 # Total cases
 fig.add_scatter(x=data.date,
@@ -62,7 +62,7 @@ fig.add_scatter(x=data.date,
                 name="Total deaths",
                 mode='lines',
                 line=dict(width=2, dash="dash", color = '#d62728'),
-                hovertemplate= "Total deaths: %{y}<br><extra></extra>",
+                hovertemplate= "Date: %{x}<br>Total deaths: %{y}<br><extra></extra>",
                 visible=False)
 
 # Total tests
@@ -71,7 +71,7 @@ fig.add_scatter(x=data.date,
                 name="Total tests",
                 mode='lines',
                 line=dict(width=2, color = "#2ca02c"),
-                hovertemplate="Total tests: %{y}<br><extra></extra>",
+                hovertemplate="Date: %{x}<br>Total tests: %{y}<br><extra></extra>",
                 visible = False)
 
 # Total vaccinations
@@ -80,7 +80,7 @@ fig.add_scatter(x=data.date,
                 name="Total vaccinations",
                 mode='lines',
                 line=dict(width=2, dash="dot", color = '#9467bd'),
-                hovertemplate= "Total vaccinations: %{y}<br><extra></extra>",
+                hovertemplate= "Date: %{x}<br>Total vaccinations: %{y}<br><extra></extra>",
                 visible = False)
 
 updatemenus = list([
@@ -129,7 +129,6 @@ updatemenus = list([
 
 
 fig.update_layout(legend_title_text='Case type',
-                  hovermode="x",
                   updatemenus=updatemenus,
                   font=dict(size=15),
                   xaxis_title="Date",

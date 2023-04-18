@@ -9,18 +9,19 @@ provinces = ["EC", "FS", "GP", "KZN", "LP", "MP", "NC", "NW", "WC"]
 
 data_deaths = get_provincial_averages(pd.read_csv(
     "../data/covid19za_provincial_cumulative_timeline_deaths.csv").fillna(method="ffill"),
-                                      provinces)
+    provinces)
 data_confirmed = get_provincial_averages(pd.read_csv(
     "../data/covid19za_provincial_cumulative_timeline_confirmed.csv").fillna(method="ffill"),
-                                         provinces)
+    provinces)
 data_recoveries = get_provincial_averages(pd.read_csv(
     "../data/covid19za_provincial_cumulative_timeline_recoveries.csv").fillna(method="ffill"),
-                                          provinces)
+    provinces)
 data_vaccination = get_provincial_averages(pd.read_csv(
     "../data/covid19za_provincial_cumulative_timeline_vaccination.csv").fillna(method="ffill"),
-                                           provinces)
+    provinces)
 
-data_vaccination.date  = pd.to_datetime(data_vaccination['date'], format='%Y-%m-%d').dt.strftime('%d-%m-%Y')
+data_vaccination.date = pd.to_datetime(
+    data_vaccination['date'], format='%Y-%m-%d').dt.strftime('%d-%m-%Y')
 
 datasets = [data_deaths, data_confirmed, data_recoveries, data_vaccination]
 
@@ -48,20 +49,20 @@ for index, dataset in enumerate(datasets):
             fig.add_trace(go.Scatter(
                 x=dates, y=dataset[province+"7"],
                 name=provinces_codes[province],
-                marker_color = fig.layout['template']['layout']['colorway'],
+                marker_color=fig.layout['template']['layout']['colorway'],
                 visible=False,
-                hovertemplate= "Date: %{x}<br>" + \
-                    "Number of cases: %{y}<br>" + \
-                    "<extra></extra>",))
+                hovertemplate="Date: %{x}<br>" +
+                "Number of cases: %{y}<br>" +
+                "<extra></extra>",))
     else:
         for province in provinces:
             fig.add_traces(go.Scatter(
                 x=dates, y=dataset[province+"7"],
                 name=provinces_codes[province],
-                marker_color = fig.layout['template']['layout']['colorway'],
-                hovertemplate= "Date: %{x}<br>" + \
-                    "Number of cases: %{y}<br>" + \
-                    "<extra></extra>",),)
+                marker_color=fig.layout['template']['layout']['colorway'],
+                hovertemplate="Date: %{x}<br>" +
+                "Number of cases: %{y}<br>" +
+                "<extra></extra>",),)
 
 updatemenus = [
     dict(name="Data Type",
@@ -76,12 +77,12 @@ updatemenus = [
                          list(itertools.chain.from_iterable([[True] * 9, [False] * 27]))},
                         {'title': 'Covid-19 deaths',
                          'yaxis': {'title': 'Average number of deaths'},
-                          "xaxis":dict(
-                            tickmode="array",
-                            tickvals=data_deaths.date.to_list()[::60],
-                            ticktext=data_deaths.date.to_list()[::60],
-                            tickangle=45,
-                        )}]),
+                         "xaxis": dict(
+                             tickmode="array",
+                             tickvals=data_deaths.date.to_list()[::60],
+                             ticktext=data_deaths.date.to_list()[::60],
+                             tickangle=45,
+                         )}]),
              dict(label="Confirmed",
                   method='update',
                   args=[{"visible":
@@ -90,7 +91,7 @@ updatemenus = [
                                                              [False] * 18]))},
                         {'title': 'Covid-19 confirmed cases',
                         'yaxis': {'title': 'Average number of confirmed cases'},
-                          "xaxis":dict(
+                         "xaxis": dict(
                             tickmode="array",
                             tickvals=data_confirmed.date.to_list()[::60],
                             ticktext=data_confirmed.date.to_list()[::60],
@@ -104,24 +105,24 @@ updatemenus = [
                                                              [False] * 9]))},
                         {'title': 'Covid-19 recoveries',
                          'yaxis': {'title': 'Average number of recoveries'},
-                         "xaxis":dict(
-                            tickmode="array",
-                            tickvals=data_recoveries.date.to_list()[::60],
-                            ticktext=data_recoveries.date.to_list()[::60],
-                            tickangle=45,
-                        )}]),
+                         "xaxis": dict(
+                             tickmode="array",
+                             tickvals=data_recoveries.date.to_list()[::60],
+                             ticktext=data_recoveries.date.to_list()[::60],
+                             tickangle=45,
+                         )}]),
              dict(label="Vaccinations",
                   method='update',
                   args=[{"visible":
                          list(itertools.chain.from_iterable([[False] * 27, [True] * 9]))},
                         {'title': 'Covid-19 vaccinations',
                          'yaxis': {'title': 'Average number of vaccinations'},
-                          "xaxis":dict(
-                            tickmode="array",
-                            tickvals=data_vaccination.date.to_list()[::60],
-                            ticktext=data_vaccination.date.to_list()[::60],
-                            tickangle=45,
-                        )}]),
+                         "xaxis": dict(
+                             tickmode="array",
+                             tickvals=data_vaccination.date.to_list()[::60],
+                             ticktext=data_vaccination.date.to_list()[::60],
+                             tickangle=45,
+                         )}]),
          ]),
          )
 ]
@@ -135,7 +136,7 @@ fig.update_layout(
         'yanchor': 'top',
         "font": {"size": 25}},
     xaxis_title="Date",
-    yaxis_title="Average number of deaths",
+    yaxis_title="Average number of cases",
     legend_title="Provinces",
     font=dict(size=16),
     font_color="black",
@@ -143,10 +144,10 @@ fig.update_layout(
 )
 
 fig.update_layout(xaxis=dict(
-        tickmode="array",
-        tickvals=data_deaths["date"].to_list()[::60],
-        ticktext=data_deaths["date"].to_list()[::60],
-        tickangle=45,
-    ))
+    tickmode="array",
+    tickvals=data_deaths["date"].to_list()[::60],
+    ticktext=data_deaths["date"].to_list()[::60],
+    tickangle=45,
+))
 
 save_or_display_html(fig, "provinces_cases")
