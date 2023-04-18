@@ -4,7 +4,7 @@ import sys
 import os
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from utils import get_country_averages, get_some_countries
+from utils import get_country_averages, get_some_countries, save_stationary_plotly
 import pandas as pd
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
@@ -38,4 +38,4 @@ fig.update_yaxes(dict(tickfont={"size": 12}, titlefont={"color": "#673ab7"}, tit
 fig.update_yaxes(dict(tickfont={"size": 12}, titlefont={"color": "#673ab7"}, title = '<b>Average new vaccinations per million</b>'), secondary_y=True, color='green')
 
 
-fig.show()
+save_stationary_plotly(fig, "line_death")

@@ -60,6 +60,18 @@ def get_economy_data():
                                                   "Volume of Imports of goods",
                                                   "Inflation, average consumer prices",
                                                   "General government gross debt"])]
-    print(data)
     data["change"] = data.apply(lambda row: 100 - (float(row["2021"].replace(",", "")) / float(row["2018"].replace(",", "")) * 100), axis=1)
     return data
+
+def save_stationary_plotly(fig, name:str):
+    args = sys.argv
+    if len(args) > 1:
+        if args[1] == "1":
+            path = "../images/stationary/"
+            fig.write_image(f"{path}{name}.png", scale=7)
+            print(f"The plot was saved to {path}{name}.png")
+        else:
+            fig.show()
+    else:
+        fig.show()
+        

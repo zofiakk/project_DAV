@@ -5,6 +5,10 @@ import plotly.express as px
 import plotly.graph_objects as go
 import topojson as tp
 from io import StringIO
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from utils import save_stationary_plotly
 mapboxtoken="pk.eyJ1IjoiemsxMTExIiwiYSI6ImNsZ2pyNHIyYTBrcHUzaGx2aDRpYWl0OXcifQ.1Bm1k4WL57wSmV7MW5kT-g"
 mapboxstyle="mapbox://styles/zk1111/clgjrbb3l008001pk6hysb21t"
 
@@ -85,5 +89,4 @@ fig.update_layout(geo_resolution=50,  title_x=0.5, title_y=0.98,
 
 
 
-fig.write_image("fig1.png")           
-#fig.show()
+save_stationary_plotly(fig, "map_provinces")
