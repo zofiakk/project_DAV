@@ -8,7 +8,6 @@ neighbours = ["South Africa", "Namibia", "Botswana", "Zimbabwe", "Eswatini", "Le
 data = pd.read_csv("../data/new_covid_za.csv")
 
 data = get_some_countries(data, neighbours)
-#!!!!!- fillna
 data = data.fillna(method="ffill")
 
 dates = data.date.to_list()
@@ -19,14 +18,28 @@ datasets = ["total_cases","total_deaths", "total_tests", "total_vaccinations" ]
 
 for index, dataset in enumerate(datasets):
     if index == 0:
-        fig.add_traces(go.Bar(x=neighbours,
-                            y=data[data.date == dates[-1]][dataset]/data[data.date == dates[-1]]["population"],
+        if dataset == "total_deaths":
+            fig.add_traces(go.Bar(x=neighbours,
+                            y=round(data[data.date == dates[-1]][dataset]/data[data.date == dates[-1]]["population"],5),
                             marker_color=['#FFA15A', '#AB63FA', '#636EFA', '#19D3F3', '#EF553B', '#00CC96'],
                             hovertemplate= "Number divided by population: %{y}<br><extra></extra>",
                                 visible=True))
+        else:
+            fig.add_traces(go.Bar(x=neighbours,
+                                y=round(data[data.date == dates[-1]][dataset]/data[data.date == dates[-1]]["population"],3),
+                                marker_color=['#FFA15A', '#AB63FA', '#636EFA', '#19D3F3', '#EF553B', '#00CC96'],
+                                hovertemplate= "Number divided by population: %{y}<br><extra></extra>",
+                                    visible=True))
     else:
-        fig.add_traces(go.Bar(x=neighbours,
-                            y=data[data.date == dates[-1]][dataset]/data[data.date == dates[-1]]["population"],
+        if dataset == "total_deaths":
+            fig.add_traces(go.Bar(x=neighbours,
+                                y=round(data[data.date == dates[-1]][dataset]/data[data.date == dates[-1]]["population"], 5),
+                                marker_color=['#FFA15A', '#AB63FA', '#636EFA', '#19D3F3', '#EF553B', '#00CC96'],
+                                hovertemplate= "Number divided by population: %{y}<br><extra></extra>",
+                                    visible=False))
+        else:
+            fig.add_traces(go.Bar(x=neighbours,
+                            y=round(data[data.date == dates[-1]][dataset]/data[data.date == dates[-1]]["population"], 3),
                              marker_color=['#FFA15A', '#AB63FA', '#636EFA', '#19D3F3', '#EF553B', '#00CC96'],
                             hovertemplate= "Number divided by population: %{y}<br><extra></extra>",
                                 visible=False))
@@ -78,7 +91,13 @@ fig.update_layout(
     xaxis = dict(
         tickfont=dict(family='Helvetica',
                       size=20,
-                      color='black')))
+                      color='black')),
+    yaxis_title="Total number of cases/population",
+    yaxis = dict(
+        tickfont=dict(family='Helvetica',
+                      size=20,
+                      color='black'))
+    )
 
 
 save_or_display_html(fig, "ZA_neighbors_normalized")

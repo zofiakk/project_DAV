@@ -37,7 +37,7 @@ topo = tp.Topology(provinces, object_name='layer1')
 # convert to geojson, store in GEO_DATA
 topo.to_geojson(GEO_DATA)
 """
-#provinces=rewind(provinces,rfc7946=False)
+
 with open('geojson.json', 'r') as data:
     geojson = json.load(StringIO(data.read()))
      
@@ -49,8 +49,8 @@ fig = px.choropleth_mapbox(df_map, geojson=geojson, locations='location', featur
                     mapbox_style="carto-positron",
                     title = "Number of confirmed cases in South African provinces")
 
-fig.update_layout(geo_resolution=50,  title_x=0.5,
+fig.update_layout(geo_resolution=50,  title_x=0.5, geo_scope="africa",
                       title=dict(font=dict(size=25)))   
                     
 
-save_or_display_html(fig, "map_provinces_cases")
+save_or_display_html(fig, "map_provinces_cases", include=False)
