@@ -53,7 +53,7 @@ fig.add_scatter(x=data.date,
                 mode='lines+markers',
                 line=dict(width=2, color = '#1f77b4'),
                 marker=dict(size=5, maxdisplayed=90),
-                hovertemplate= "Total cases: %{y}<br><extra></extra>",
+                hovertemplate= "Date: %{x}<br>Total cases: %{y}<br><extra></extra>",
                 visible=False)
 
 # Total deaths
@@ -96,11 +96,13 @@ updatemenus = list([
             dict(label='Log Scale',
                  method='update',
                  args=[{'visible': [True]*4 + [False]*4},
-                       {'yaxis': {'type': 'log'}}]),
+                       {'yaxis': {'type': 'log'},
+                        'yaxis': {'title': 'Average number of cases'}}]),
             dict(label='Linear Scale',
                  method='update',
                  args=[{'visible':[True]*4 + [False]*4},
-                       {'yaxis': {'type': 'linear'}}])
+                       {'yaxis': {'type': 'linear'},
+                        'yaxis': {'title': 'Average number of cases'}}])
             ]),
         ),
     dict(direction="right",

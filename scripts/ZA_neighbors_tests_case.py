@@ -32,7 +32,7 @@ fig.update_layout(xaxis=dict(
 fig.update_layout(
     font=dict(size=15),
     xaxis_title="Date",
-    yaxis_title="Average number of tests per cases",
+    yaxis_title="Average number of tests per case",
     legend_title_text='Country',
     title={
         'text': "Average number of tests per confirmed case",

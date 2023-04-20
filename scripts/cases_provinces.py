@@ -2,6 +2,7 @@ import plotly.graph_objects as go
 import pandas as pd
 from utils import get_provincial_averages, save_or_display_html
 import itertools
+import numpy as np
 
 
 provinces = ["EC", "FS", "GP", "KZN", "LP", "MP", "NC", "NW", "WC"]
@@ -51,6 +52,7 @@ for index, dataset in enumerate(datasets):
                 name=provinces_codes[province],
                 marker_color=fig.layout['template']['layout']['colorway'],
                 visible=False,
+                yhoverformat=".3~s",
                 hovertemplate="Date: %{x}<br>" +
                 "Number of cases: %{y}<br>" +
                 "<extra></extra>",))
@@ -62,7 +64,8 @@ for index, dataset in enumerate(datasets):
                 marker_color=fig.layout['template']['layout']['colorway'],
                 hovertemplate="Date: %{x}<br>" +
                 "Number of cases: %{y}<br>" +
-                "<extra></extra>",),)
+                "<extra></extra>",
+                yhoverformat=".3~s",),)
 
 updatemenus = [
     dict(name="Data Type",
@@ -129,14 +132,14 @@ updatemenus = [
 
 fig.update_layout(
     title={
-        'text': "Covid-19 cases in South African provinces",
+        'text': "Covid-19 deaths in South African provinces",
         'x': 0.5,
         'y': 0.92,
         'xanchor': 'center',
         'yanchor': 'top',
         "font": {"size": 25}},
     xaxis_title="Date",
-    yaxis_title="Average number of cases",
+    yaxis_title="Average number of deaths",
     legend_title="Provinces",
     font=dict(size=16),
     font_color="black",

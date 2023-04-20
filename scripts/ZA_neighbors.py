@@ -73,7 +73,7 @@ fig.update_layout(
     font=dict(size=15),
     legend_title_text='Country',
     title={
-        'text': "Neighbors comparison",
+        'text': "Daily new cases per million",
         'x': 0.5,
         'y': 0.92,
         'xanchor': 'center',

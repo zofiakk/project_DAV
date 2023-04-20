@@ -4,7 +4,7 @@ import sys
 import os
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from utils import save_stationary_plotly, save_or_display_html
+from utils import save_stationary_plotly
 
 pop = pd.read_csv("../data/provinces_population_2020.csv")
 pop = pop[['ADM1_NAME', 'T_TL']]
@@ -17,12 +17,17 @@ provinces = sizes.ADM1_EN.to_list()
 pop["density"] = pop.T_TL/sizes.AREA_SQKM
 
 fig = go.Figure()
-
+text = round(pop.density,4).to_list()
+text = [str(i) + " km²" for i in text]
 fig.add_traces(go.Bar(x=provinces,
                     y=round(pop.density,5),
-                    hovertemplate= "Population per sqrt km: %{y}<br><extra></extra>",
+                    text=text,
                     visible=True,
-                    marker_color=['#636EFA', '#EF553B', '#00CC96', '#AB63FA', '#FFA15A', '#19D3F3', '#B6E880', '#FF6692', '#FF97FF']))
+                    marker_color=['#636EFA', '#EF553B', '#00CC96', '#AB63FA', '#FFA15A',
+                                  '#19D3F3', '#B6E880', '#FF6692', '#FF97FF']))
+fig.update_traces(textfont_size=12, textangle=0, textposition="outside", cliponaxis=False,
+                  )
+
 fig.update_layout(
     title={
         'text': "Population density in South African provinces",
@@ -37,12 +42,11 @@ fig.update_layout(
             tickfont=dict(family='Helvetica',
                             size=18,
                             color='black')),
-    yaxis_title="Population/surface area",
+    yaxis_title="Population density",
     yaxis = dict(
         tickfont=dict(family='Helvetica',
                       size=18,
                       color='black'))
     )
 
-save_or_display_html(fig, "provinces_density")
 save_stationary_plotly(fig, "provinces_density")

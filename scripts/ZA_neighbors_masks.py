@@ -12,7 +12,7 @@ for country, data_for_country in data.groupby("location_name"):
                         y=data_for_country.mask_use_mean * 100,
                         name=country, mode='lines',
                         hovertemplate="Date: %{x}<br>" +
-                        "Masks percentage: %{y}<br>" +
+                        "Masks usage percentage: %{y}<br>" +
                         "<extra></extra>",
                         line=dict(width=2))
 
@@ -21,7 +21,7 @@ fig.add_scatter(x=data_global.date,
                         y=data_global.mask_use_mean * 100,
                         name="Global", mode='lines',
                         hovertemplate="Date: %{x}<br>" +
-                        "Masks percentage: %{y}<br>" +
+                        "Masks usage percentage: %{y}<br>" +
                         "<extra></extra>",
                         line=dict(width=2))
 
@@ -37,7 +37,7 @@ fig.update_layout(xaxis=dict(
 fig.update_layout(
     font=dict(size=15),
     xaxis_title="Date",
-    yaxis_title="Percentage of population",
+    yaxis_title="Percentage of population [%]",
     legend_title_text='Country',
     title={
         'text': "Estimated mask usage",

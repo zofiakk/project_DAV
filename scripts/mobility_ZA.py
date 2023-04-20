@@ -5,7 +5,7 @@ from utils import save_or_display_html
 mobility_ZA = pd.read_csv("../data/mobility/ZA_moblility.csv")
 mobility_ZA = mobility_ZA.loc[mobility_ZA.sub_region_1.isnull(), :]
 
-colors = (['indianred']*2+['lightsalmon']*5)*12*12 + ['indianred']
+colors = (['red']*2+['orange']*5)*12*12 + ['red']
 
 fig = go.Figure()
 
@@ -70,7 +70,7 @@ fig.add_traces(go.Bar(
 ))
 
 updatemenus = list([
-    dict(active=1,
+    dict(active=0,
          yanchor="top",
          xanchor="left",
          x=0.0,
@@ -110,7 +110,7 @@ fig.update_layout(
     xaxis_title="Dates",
     yaxis_title="Percentage of change",
     title={
-        'text': "Mobility report",
+        'text': "Retail & Recreation Mobility Change From Baseline",
         'x':0.5,
         'y':0.95,
         'xanchor': 'center',
