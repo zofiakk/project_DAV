@@ -1,8 +1,13 @@
+"""Utils
+
+Script which contains wildly used, helper functions
+"""
 import pandas as pd
 import sys
+import plotly.graph_objects as go
 
 
-def get_smaller_data(data:pd.DataFrame, every_nth:int=7) -> pd.DataFrame:
+def get_smaller_data(data: pd.DataFrame, every_nth: int = 7) -> pd.DataFrame:
     """Function which allows to create smaller
     dataset by taking only one row out of every_nth
 
@@ -18,7 +23,8 @@ def get_smaller_data(data:pd.DataFrame, every_nth:int=7) -> pd.DataFrame:
     df_map = data[data["date"].isin(dates)]
     return df_map
 
-def get_some_countries(data:pd.DataFrame, names:list) -> pd.DataFrame:
+
+def get_some_countries(data: pd.DataFrame, names: list) -> pd.DataFrame:
     """Subset the data to get only the rows
     pertaining some countries
 
@@ -33,7 +39,8 @@ def get_some_countries(data:pd.DataFrame, names:list) -> pd.DataFrame:
     new_data = data[data["location"].isin(names)]
     return new_data
 
-def get_provincial_averages(data:pd.DataFrame, provinces:list)->pd.DataFrame:
+
+def get_provincial_averages(data: pd.DataFrame, provinces: list) -> pd.DataFrame:
     """Function which creates the additional
     columns with the average values for every province
 
@@ -51,7 +58,7 @@ def get_provincial_averages(data:pd.DataFrame, provinces:list)->pd.DataFrame:
     return data
 
 
-def get_country_averages(data:pd.DataFrame, column_names:list) -> pd.DataFrame:
+def get_country_averages(data: pd.DataFrame, column_names: list) -> pd.DataFrame:
     """Function which creates the additional
     columns with the average values
 
@@ -68,10 +75,19 @@ def get_country_averages(data:pd.DataFrame, column_names:list) -> pd.DataFrame:
     return data
 
 
-def save_or_display_html(fig, name:str, include=True):
+def save_or_display_html(fig: go.Figure, name: str, include=True):
+    """Function which allows to display or save
+    the interactive plot to the correct folder
+
+    :param fig: Figure which is to be saved or displayed
+    :type fig: go.Figure
+    :param name: Name of the file to which the plot should be saved
+    :type name: str
+    :param include: Whether to include the js scripts, defaults to True
+    :type include: bool, optional
+    """
     args = sys.argv
     if len(args) > 1:
-        print(name)
         if args[1] == "1":
             path = "../images/"
             if include:
@@ -84,16 +100,20 @@ def save_or_display_html(fig, name:str, include=True):
     else:
         fig.show()
 
-def get_masks_data()-> pd.DataFrame:
+
+def get_masks_data() -> pd.DataFrame:
     """Function which creates the dataset
     with the masks information
 
     :return: Dataset pertaining the mask usage
     :rtype: pd.DataFrame
     """
-    data_2020 = pd.read_csv("../data/data_download_file_reference_2020_new.csv")
-    data_2021 = pd.read_csv("../data/data_download_file_reference_2021_new.csv")
-    data_2022 = pd.read_csv("../data/data_download_file_reference_2022_new.csv")
+    data_2020 = pd.read_csv(
+        "../data/data_download_file_reference_2020_new.csv")
+    data_2021 = pd.read_csv(
+        "../data/data_download_file_reference_2021_new.csv")
+    data_2022 = pd.read_csv(
+        "../data/data_download_file_reference_2022_new.csv")
 
     data_2020 = data_2020[["location_name", "date", "mask_use_mean"]]
     data_2021 = data_2021[["location_name", "date", "mask_use_mean"]]
@@ -103,19 +123,36 @@ def get_masks_data()-> pd.DataFrame:
     data = data.reset_index()
     return data
 
-def get_economy_data():
+
+def get_economy_data() -> pd.DataFrame:
+    """Function which creates the dataframe
+    containing the economy data
+
+    :return: DataFrame with the economic data
+    :rtype: pd.DataFrame
+    """
     data = pd.read_csv("../data/WEO_data.csv", sep=";")
-    data = data[["Country", "Subject Descriptor", "Units", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024"]]
+    data = data[["Country", "Subject Descriptor", "Units", "2017",
+                 "2018", "2019", "2020", "2021", "2022", "2023", "2024"]]
     data = data[data["Subject Descriptor"].isin(["Gross domestic product, current prices",
-                                                  "Volume of exports of goods",
-                                                  "Volume of Imports of goods",
-                                                  "Inflation, average consumer prices",
-                                                  "General government gross debt"])]
+                                                 "Volume of exports of goods",
+                                                 "Volume of Imports of goods",
+                                                 "Inflation, average consumer prices",
+                                                 "General government gross debt"])]
     data["change"] = data.apply(lambda row: 100 - (float(row["2021"].replace(",", "")) / float(row["2018"].replace(",", "")) * 100),
                                 axis=1)
     return data
 
-def save_stationary_plotly(fig, name:str):
+
+def save_stationary_plotly(fig: go.Figure, name: str):
+    """Function which allows to display or save
+    the stationary figure to correct folder
+
+    :param fig: Figure which is to be saved
+    :type fig: go.Figure
+    :param name: Name of the output file
+    :type name: str
+    """
     args = sys.argv
     if len(args) > 1:
         if args[1] == "1":
@@ -126,4 +163,3 @@ def save_stationary_plotly(fig, name:str):
             fig.show()
     else:
         fig.show()
-        

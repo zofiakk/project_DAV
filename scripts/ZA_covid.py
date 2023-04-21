@@ -1,10 +1,16 @@
+"""ZA covid
+
+Script which creates interactive line plot showing
+the pandemic in South Africa
+"""
+
 import pandas as pd
 import plotly.graph_objects as go
 from utils import get_some_countries, get_country_averages, save_or_display_html
 
 
+# Read the data, choose its subset and calculate the averages
 data = pd.read_csv("../data/new_covid_za.csv")
-
 data = get_some_countries(data, ["South Africa"]).fillna(method="ffill")
 data = get_country_averages(data,
                             ["new_cases", "new_deaths", "new_tests",
@@ -18,42 +24,42 @@ fig.add_scatter(x=data.date,
                 y=data.new_cases7,
                 name="Cases",
                 mode='lines+markers',
-                line=dict(width=2, color = "#1f77b4"),
+                line=dict(width=2, color="#1f77b4"),
                 marker=dict(size=5, maxdisplayed=90),
-                hovertemplate= "Date: %{x}<br>Cases: %{y}<br><extra></extra>")
+                hovertemplate="Date: %{x}<br>Cases: %{y}<br><extra></extra>")
 
 # Daily deaths
 fig.add_scatter(x=data.date,
                 y=data.new_deaths7,
                 name="Deaths",
                 mode='lines',
-                line=dict(width=2, dash="dash", color = '#d62728'),
-                hovertemplate= "Date: %{x}<br>Deaths: %{y}<br><extra></extra>")
+                line=dict(width=2, dash="dash", color='#d62728'),
+                hovertemplate="Date: %{x}<br>Deaths: %{y}<br><extra></extra>")
 
 # Daily tests
 fig.add_scatter(x=data.date,
                 y=data.new_tests7,
                 name="Tests",
                 mode='lines',
-                line=dict(width=2, color = '#2ca02c'),
-                hovertemplate= "Date: %{x}<br>Tests: %{y}<br><extra></extra>")
+                line=dict(width=2, color='#2ca02c'),
+                hovertemplate="Date: %{x}<br>Tests: %{y}<br><extra></extra>")
 
 # Daily vaccinations
 fig.add_scatter(x=data.date,
                 y=data.new_vaccinations7,
                 name="Vaccinations",
                 mode='lines',
-                line=dict(width=2, dash="dot", color = '#9467bd'),
-                hovertemplate= "Date: %{x}<br>Vaccinations: %{y}<br><extra></extra>")
+                line=dict(width=2, dash="dot", color='#9467bd'),
+                hovertemplate="Date: %{x}<br>Vaccinations: %{y}<br><extra></extra>")
 
 # Total cases
 fig.add_scatter(x=data.date,
                 y=data.total_cases7,
                 name="Total cases",
                 mode='lines+markers',
-                line=dict(width=2, color = '#1f77b4'),
+                line=dict(width=2, color='#1f77b4'),
                 marker=dict(size=5, maxdisplayed=90),
-                hovertemplate= "Date: %{x}<br>Total cases: %{y}<br><extra></extra>",
+                hovertemplate="Date: %{x}<br>Total cases: %{y}<br><extra></extra>",
                 visible=False)
 
 # Total deaths
@@ -61,8 +67,8 @@ fig.add_scatter(x=data.date,
                 y=data.total_deaths7,
                 name="Total deaths",
                 mode='lines',
-                line=dict(width=2, dash="dash", color = '#d62728'),
-                hovertemplate= "Date: %{x}<br>Total deaths: %{y}<br><extra></extra>",
+                line=dict(width=2, dash="dash", color='#d62728'),
+                hovertemplate="Date: %{x}<br>Total deaths: %{y}<br><extra></extra>",
                 visible=False)
 
 # Total tests
@@ -70,22 +76,23 @@ fig.add_scatter(x=data.date,
                 y=data["total_tests7"],
                 name="Total tests",
                 mode='lines',
-                line=dict(width=2, color = "#2ca02c"),
+                line=dict(width=2, color="#2ca02c"),
                 hovertemplate="Date: %{x}<br>Total tests: %{y}<br><extra></extra>",
-                visible = False)
+                visible=False)
 
 # Total vaccinations
 fig.add_scatter(x=data.date,
                 y=data["total_vaccinations7"],
                 name="Total vaccinations",
                 mode='lines',
-                line=dict(width=2, dash="dot", color = '#9467bd'),
-                hovertemplate= "Date: %{x}<br>Total vaccinations: %{y}<br><extra></extra>",
-                visible = False)
+                line=dict(width=2, dash="dot", color='#9467bd'),
+                hovertemplate="Date: %{x}<br>Total vaccinations: %{y}<br><extra></extra>",
+                visible=False)
 
+# Create the dropdown menu
 updatemenus = list([
     dict(direction="right",
-         type = "buttons",
+         type="buttons",
          showactive=True,
          active=1,
          yanchor="top",
@@ -93,20 +100,20 @@ updatemenus = list([
          x=0.0,
          y=1.15,
          buttons=list([
-            dict(label='Log Scale',
-                 method='update',
-                 args=[{'visible': [True]*4 + [False]*4},
-                       {'yaxis': {'type': 'log'},
+             dict(label='Log Scale',
+                  method='update',
+                  args=[{'visible': [True]*4 + [False]*4},
+                        {'yaxis': {'type': 'log'},
                         'yaxis': {'title': 'Average number of cases'}}]),
-            dict(label='Linear Scale',
-                 method='update',
-                 args=[{'visible':[True]*4 + [False]*4},
-                       {'yaxis': {'type': 'linear'},
+             dict(label='Linear Scale',
+                  method='update',
+                  args=[{'visible': [True]*4 + [False]*4},
+                        {'yaxis': {'type': 'linear'},
                         'yaxis': {'title': 'Average number of cases'}}])
-            ]),
-        ),
+         ]),
+         ),
     dict(direction="right",
-         type = "buttons",
+         type="buttons",
          showactive=True,
          active=1,
          yanchor="top",
@@ -114,22 +121,22 @@ updatemenus = list([
          x=0.0,
          y=1.3,
          buttons=list([
-            dict(label='Total',
-                 method='update',
-                 args=[{'visible': [False]*4 + [True]*4},
-                       {'title': 'Covid-19 total cases',
+             dict(label='Total',
+                  method='update',
+                  args=[{'visible': [False]*4 + [True]*4},
+                        {'title': 'Covid-19 total cases',
                         'yaxis': {'title': 'Average number of total cases'}}]),
-            dict(label='Daily',
-                 method='update',
-                 args=[{'visible': [True]*4 + [False]*4},
-                       {'title': 'Covid-19 daily cases',
+             dict(label='Daily',
+                  method='update',
+                  args=[{'visible': [True]*4 + [False]*4},
+                        {'title': 'Covid-19 daily cases',
                         'yaxis': {'title': 'Average number of daily cases'}}])
-            ]),
-        )
-    
-    ])
+         ]),
+         )
+])
 
 
+# Modify the plot layout
 fig.update_layout(legend_title_text='Case type',
                   updatemenus=updatemenus,
                   font=dict(size=15),
@@ -139,8 +146,8 @@ fig.update_layout(legend_title_text='Case type',
 fig.update_layout(
     title={
         'text': "Covid-19 cases",
-        'x':0.5,
-        'y':0.92,
+        'x': 0.5,
+        'y': 0.92,
         'xanchor': 'center',
         'yanchor': 'top',
         "font": {"size": 25}},

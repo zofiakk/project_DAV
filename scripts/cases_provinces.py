@@ -1,13 +1,18 @@
+"""Cases provinces
+
+Script which creates interactive bar plot showing
+cases in South African provinces
+"""
+
 import plotly.graph_objects as go
 import pandas as pd
 from utils import get_provincial_averages, save_or_display_html
 import itertools
-import numpy as np
 
 
 provinces = ["EC", "FS", "GP", "KZN", "LP", "MP", "NC", "NW", "WC"]
 
-
+# Read the needed files
 data_deaths = get_provincial_averages(pd.read_csv(
     "../data/covid19za_provincial_cumulative_timeline_deaths.csv").fillna(method="ffill"),
     provinces)
@@ -43,12 +48,14 @@ provinces_codes = {
 
 provinces_codes = {v: k for k, v in provinces_codes.items()}
 
+# Fora each dataset and each province add scatter
 for index, dataset in enumerate(datasets):
     dates = dataset["date"]
     if index != 0:
         for province in provinces:
             fig.add_trace(go.Scatter(
-                x=dates, y=dataset[province+"7"],
+                x=dates,
+                y=dataset[province+"7"],
                 name=provinces_codes[province],
                 marker_color=fig.layout['template']['layout']['colorway'],
                 visible=False,
@@ -59,7 +66,8 @@ for index, dataset in enumerate(datasets):
     else:
         for province in provinces:
             fig.add_traces(go.Scatter(
-                x=dates, y=dataset[province+"7"],
+                x=dates,
+                y=dataset[province+"7"],
                 name=provinces_codes[province],
                 marker_color=fig.layout['template']['layout']['colorway'],
                 hovertemplate="Date: %{x}<br>" +
@@ -67,6 +75,7 @@ for index, dataset in enumerate(datasets):
                 "<extra></extra>",
                 yhoverformat=".3~s",),)
 
+# Create the dropdown menu
 updatemenus = [
     dict(name="Data Type",
          yanchor="top",
@@ -77,7 +86,8 @@ updatemenus = [
              dict(label="Deaths",
                   method='update',
                   args=[{"visible":
-                         list(itertools.chain.from_iterable([[True] * 9, [False] * 27]))},
+                         list(itertools.chain.from_iterable([[True] * 9,
+                                                             [False] * 27]))},
                         {'title': 'Covid-19 deaths',
                          'yaxis': {'title': 'Average number of deaths'},
                          "xaxis": dict(
@@ -130,6 +140,7 @@ updatemenus = [
          )
 ]
 
+# Change the figure layout
 fig.update_layout(
     title={
         'text': "Covid-19 deaths in South African provinces",
@@ -146,6 +157,7 @@ fig.update_layout(
     updatemenus=updatemenus
 )
 
+# Change the xticks
 fig.update_layout(xaxis=dict(
     tickmode="array",
     tickvals=data_deaths["date"].to_list()[::60],

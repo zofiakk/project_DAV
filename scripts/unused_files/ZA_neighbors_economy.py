@@ -1,5 +1,8 @@
 import plotly.graph_objs as go
 import pandas as pd
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from utils import save_or_display_html, get_economy_data
 
 data = get_economy_data()
