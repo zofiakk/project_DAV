@@ -1,4 +1,4 @@
-# Covid in South Africa <img src="https://github.com/zofiakk/project_DAV/blob/master/images/Flag-map_of_South_Africa.svg.png" width="80" height="80">
+# Covid-19 in South Africa <img src="https://github.com/zofiakk/project_DAV/blob/master/images/Flag-map_of_South_Africa.svg.png" width="80" height="80">
 
 All of the scripts contained in a "scripts" folder are written in Python. They allow to analyze and visualize the data pertaining the Covid-19 pandemic in South Africa and its neighboring countries.
 
