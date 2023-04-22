@@ -45,7 +45,7 @@ fig.update_layout(
     title={
         'text': "Population density in South African provinces",
         'x': 0.5,
-        'y': 0.92,
+        'y': 0.95,
         'xanchor': 'center',
         'yanchor': 'top',
         "font": {"size": 25}},
@@ -61,5 +61,16 @@ fig.update_layout(
                       size=15,
                       color='black'))
 )
+
+# Change plot margins
+fig.update_layout(
+    autosize=True,
+    margin={'l': 0, 'r': 0, 'b': 0, 't': 50},
+    plot_bgcolor='rgba(0,0,0,0)'
+)
+
+fig.update_yaxes(showline=True, linecolor='black', gridcolor='lightgrey')
+fig.update_xaxes(showline=True, linecolor='black', showgrid=False)
+
 
 save_stationary_plotly(fig, "provinces_density")

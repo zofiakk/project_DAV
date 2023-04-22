@@ -73,6 +73,10 @@ fig.update_layout(
 fig.update_layout(
     autosize=True,
     margin={'l': 0, 'r': 0, 'b': 0, 't': 50},
+    plot_bgcolor='rgba(0,0,0,0)'
 )
+
+fig.update_yaxes(showline=True, linecolor='black', gridcolor='lightgrey')
+fig.update_xaxes(showline=True, linecolor='black', showgrid=False)
 
 save_stationary_plotly(fig, "ZA_neighbors")
