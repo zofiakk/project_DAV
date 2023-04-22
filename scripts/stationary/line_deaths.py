@@ -49,7 +49,7 @@ fig.update_layout(hovermode="x", height=600, width=1000,
                   xaxis=dict(tickfont={"size": 15},
                              titlefont={"color": "#673ab7"},
                              title='<b>Date</b>'),
-                  legend=dict(font=dict(size=15)),
+                  legend=dict(font=dict(size=15), orientation = "h"),
                   legend_title_text='Legend')
 
 # Add axis titles
