@@ -19,6 +19,7 @@ fig_map = go.Figure(px.choropleth(df_map,
                         title="Cumulative number of cases"
                         ))
 
+# Change the layout
 fig_map.update_layout(geo_scope="africa", geo_resolution=50,  title_x=0.5,
                       title=dict(font=dict(size=25)),
                       font=dict(size=15),

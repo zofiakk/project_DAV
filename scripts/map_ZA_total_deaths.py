@@ -1,3 +1,9 @@
+"""Map ZA total deaths
+
+Function which creates animated map showing
+the number of Covid related deaths in African countries
+during the pandemic
+"""
 import pandas as pd
 import plotly.graph_objects as go
 import plotly.express as px
@@ -9,18 +15,21 @@ df_map_all = pd.read_csv("../data/new_covid_za.csv")
 df_map = get_smaller_data(df_map_all, 7)
 
 # Create the animation
-fig_map = go.Figure(px.choropleth(df_map,
-                        locations='iso_code', color='total_deaths',
-                        hover_name='location',
-                        color_continuous_scale="algae",
-                        range_color=[0, max(df_map["total_deaths"][df_map["total_deaths"].notna()])],
-                        labels={'total_deaths': 'Number of deaths'},
-                        animation_frame="date",
-                        title="Cumulative number of Covid related deaths"
-                        ))
+fig_map = go.Figure(px.choropleth(
+  df_map,
+  locations='iso_code', color='total_deaths',
+  hover_name='location',
+  color_continuous_scale="algae",
+  range_color=[0, max(df_map["total_deaths"][df_map["total_deaths"].notna()])],
+  labels={'total_deaths': 'Number of deaths'},
+  animation_frame="date",
+  title="Cumulative number of Covid related deaths"
+  ))
 
-
-fig_map.update_layout(geo_scope="africa", geo_resolution=50,  title_x=0.5,
+# Change the layout- buttons and current date placement
+fig_map.update_layout(geo_scope="africa",
+                      geo_resolution=50,
+                      title_x=0.5,
                       title=dict(font=dict(size=25)),
                       font=dict(size=15),
                       sliders= [{
@@ -35,13 +44,16 @@ fig_map.update_layout(geo_scope="africa", geo_resolution=50,  title_x=0.5,
                             "xanchor": "right"
                         }}],
                 updatemenus=[{"buttons": [
-                  {"args": [None, {"frame": {"duration": 500, "redraw": False},
+                  {"args": [None, {"frame": {"duration": 500,
+                                             "redraw": False},
                                    "fromcurrent": True,
-                                   "transition": {"duration": 300,
-                                                  "easing": "quadratic-in-out"}}],
+                                   "transition":
+                                     {"duration": 300,
+                                      "easing": "quadratic-in-out"}}],
                    "label": "Play",
                    "method": "animate"},
-                  { "args": [[None], {"frame": {"duration": 0, "redraw": False},
+                  { "args": [[None], {"frame": {"duration": 0,
+                                                "redraw": False},
                                   "mode": "immediate",
                                   "transition": {"duration": 0}}],
                     "label": "Pause",

@@ -49,16 +49,16 @@ fig.update_layout(
         'xanchor': 'center',
         'yanchor': 'top',
         "font": {"size": 25}},
-    font=dict(size=18),
+    font=dict(size=15),
     xaxis_title="Provinces",
     xaxis=dict(categoryorder='total descending',
                 tickfont=dict(family='Helvetica',
-                              size=18,
+                              size=15,
                               color='black')),
     yaxis_title="Population density",
     yaxis=dict(
         tickfont=dict(family='Helvetica',
-                      size=18,
+                      size=15,
                       color='black'))
 )
 

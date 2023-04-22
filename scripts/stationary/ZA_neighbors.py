@@ -6,12 +6,13 @@ number of cases in neighboring countries
 
 from datetime import datetime
 import plotly.graph_objects as go
-from utils import get_some_countries, save_stationary_plotly, get_country_averages
-import pandas as pd
 import sys
 import os
-
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from utils import get_some_countries, save_stationary_plotly, get_country_averages
+import pandas as pd
+
+
 
 neighbours = ["South Africa", "Namibia",
               "Botswana", "Zimbabwe", "Eswatini", "Lesotho"]

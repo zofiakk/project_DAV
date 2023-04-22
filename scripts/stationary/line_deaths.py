@@ -53,13 +53,13 @@ fig.update_layout(hovermode="x", height=600, width=1000,
                   legend_title_text='Legend')
 
 # Add axis titles
-fig.update_yaxes(dict(tickfont={"size": 12},
+fig.update_yaxes(dict(tickfont={"size": 15},
                       titlefont={
                           "color": "#673ab7"},
                       title='<b>Average new cases per million</b>'),
                  secondary_y=False,
-                 color='blue')
-fig.update_yaxes(dict(tickfont={"size": 12},
+                 color='black')
+fig.update_yaxes(dict(tickfont={"size": 15},
                       titlefont={"color": "#673ab7"},
                       title='<b>Average new vaccinations per million</b>'),
                  secondary_y=True, color='green')
