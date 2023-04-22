@@ -1,6 +1,6 @@
 # Covid in South Africa <img src="https://github.com/zofiakk/project_DAV/blob/master/images/Flag-map_of_South_Africa.svg.png" width="80" height="80">
 
-All of the scripts contained in a "scripts" folder are written in python. They allow to analyze and visualize the data pertaining the covid pandemic in South Africa and its neighboring countries.
+All of the scripts contained in a "scripts" folder are written in Python. They allow to analyze and visualize the data pertaining the Covid-19 pandemic in South Africa and its neighboring countries.
 
 Datasets used in this project contain summary statistics as well as inferential statistics (for example estimated masks usage).
 
@@ -8,7 +8,7 @@ Datasets used in this project contain summary statistics as well as inferential 
 * [General Info](#general-information)
 * [Usage](#usage)
 * [License](#license)
-* [Authors](#author)
+* [Authors](#authors)
 
 ## General Information
 
@@ -23,7 +23,7 @@ To run the script simply make sure that you have the needed files in the "data" 
 python <file_name.py> 1
 ```
 
-To create a stationary plot simply ad the correct path to the command:
+To create a stationary plot simply add the correct path to the command:
 
 ```python 
 python stationary/<script_name>.py [1]
@@ -33,6 +33,6 @@ Usage of the following parameter '[1]' allows to save the plot rather than displ
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
 
-## Author
+## Authors
 Zofia Kochańska, 
 Julia Smolik
