@@ -35,7 +35,7 @@ for country, data_for_country in data.groupby("Entity"):
 
 # Modify teh xaxis ticks
 dates = data[data["Entity"] == "South Africa"].Day.to_list()
-chosen = dates[0::60]
+chosen = dates[0::45]
 fig.update_layout(xaxis=dict(
     tickmode="array",
     tickvals=chosen,
