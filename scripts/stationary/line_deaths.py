@@ -58,7 +58,7 @@ fig.update_layout(height=600, width=1000,
 
 # Add axis titles
 fig.update_yaxes(dict(tickfont={"size": 15},
-                      title='Average new cases per million'),
+                      title='Average new deaths per million'),
                  secondary_y=False,
                  color='black',
                  gridcolor="lightgrey",
