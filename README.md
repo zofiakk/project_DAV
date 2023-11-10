@@ -34,5 +34,5 @@ Usage of the following parameter '[1]' allows to save the plot rather than displ
 [MIT](https://choosealicense.com/licenses/mit/)
 
 ## Authors
-Zofia Kochańska, 
-Julia Smolik
+[Zofia Kochańska](https://github.com/zofiakk), 
+[Julia Smolik](https://github.com/juliasmolik)
